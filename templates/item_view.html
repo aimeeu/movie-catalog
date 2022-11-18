@@ -1,0 +1,88 @@
+<!---
+  ===============LICENSE_START=======================================================
+  Aimee Ukasick Apache-2.0
+  ===================================================================================
+  Copyright (C) 2018 Aimee Ukasick. All rights reserved.
+  ===================================================================================
+  This software file is distributed by Aimee Ukasick
+  under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  This file is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  ===============LICENSE_END=========================================================
+-->
+
+{% extends "layout.html" %}
+{% block content %}
+<div id="page_title">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>View Movie</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="view_item">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-lg-3">
+                <img id="img_movie_poster" src="{{ movie.poster_img_url }}"
+                     width="220" height="342"><br/><br/>
+                Poster Image URL: <a href="{{ movie.poster_img_url }}"
+                                     target="_blank">{{ movie.poster_img_url
+                }}</a>
+            </div>
+            <div class="col-md-6 col-lg-9">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{ movie.title }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Category: {{ movie.category.name }}</td>
+                        </tr>
+                        <tr>
+                            <td><a href="{{ movie.trailer_url}}"
+                                   id="link_trailer"
+                                   target="_blank">Trailer</a></td>
+                        </tr>
+                        <tr>
+                            <td>{{ movie.description }}</td>
+                        </tr>
+                        <tr>
+                            <td>Record Created By: {{ movie.user.username }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                {% if current_user.is_authenticated and
+                                current_user.username == movie.user.username %}
+                                <a href="{{ url_for('edit_movie', movie_id=movie.movie_idnt) }}">Edit</a>
+                                | <a
+                                    href="{{ url_for('delete_movie', movie_id=movie.movie_idnt) }}#">Delete</a>
+                                {% endif %}
+                                &nbsp;&nbsp;&nbsp; <a
+                                    href="{{ url_for('view_movie_json', movie_id=movie.movie_idnt) }}"
+                                    target="_blank">JSON</a>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

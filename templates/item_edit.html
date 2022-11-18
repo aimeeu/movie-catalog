@@ -1,0 +1,144 @@
+<!---
+  ===============LICENSE_START=======================================================
+  Aimee Ukasick Apache-2.0
+  ===================================================================================
+  Copyright (C) 2018 Aimee Ukasick. All rights reserved.
+  ===================================================================================
+  This software file is distributed by Aimee Ukasick
+  under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  This file is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  ===============LICENSE_END=========================================================
+-->
+
+{% extends "layout.html" %}
+{% block content %}
+<div id="page_title">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{ form_title }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <form id="form_add_edit_movie" action="#" method="post">
+        <div class="form-group">
+            <div class="form-row">
+                <div class="col-md-6 col-xl-2">
+                    <label class="col-form-label"
+                           id="lbl_title"
+                           for="txt_fld_title">Title:</label>
+                </div>
+                <div class="col-md-6 col-xl-10">
+                    <input class="form-control"
+                           type="text"
+                           id="txt_fld_title"
+                           maxlength="250"
+                           value="{{movie.title}}"
+                           required="true"
+                           name="title"></div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 col-xl-2">
+                    <label class="col-form-label"
+                           id="lbl_category"
+                           for="dd_category">Category:</label>
+                </div>
+                <div class="col-md-6 col-xl-10">
+                    <select class="form-control"
+                            id="dd_category"
+                            name="dd_category"
+                            required="true">
+                        {% for cat in categories %}
+                            <option value="{{cat.category_idnt}}"
+                                    selected>{{cat.name}}</option>
+                        {% endfor %}}
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 col-xl-2">
+                    <label class="col-form-label"
+                           id="lbl_desc"
+                           for="txt_area_desc">Description:</label>
+                </div>
+                <div class="col-md-6 col-xl-10">
+                    <textarea class="form-control"
+                              id="txt_area_desc"
+                              required="true"
+                              maxlength="1000"
+                              rows="4"
+                              name="desc">{{ movie.description }}</textarea>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 col-xl-2">
+                    <label class="col-form-label"
+                           id="lbl_poster_url"
+                           for="input_poster_url">Poster
+                        URL:</label>
+                </div>
+                <div class="col-md-6 col-xl-10">
+                    <input class="form-control"
+                           type="url"
+                           id="input_poster_url"
+                           name="poster_img_url"
+                           required="true"
+                           value="{{movie.poster_img_url}}"
+                           maxlength="500"></div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6 col-xl-2">
+                    <label class="col-form-label"
+                           id="lbl_trailer_url"
+                           for="input_trailer_url">Trailer
+                        URL:</label>
+                </div>
+                <div class="col-md-6 col-xl-10">
+                    <input class="form-control"
+                           type="url"
+                           id="input_trailer_url"
+                           name="trailer_url"
+                           required="true"
+                           value="{{movie.trailer_url}}"
+                           maxlength="500">
+                </div>
+            </div>
+            {% if display_audit == "true" %}
+            <div class="form-row">
+                <div class="col-md-6 col-xl-2">
+                    <label class="col-form-label"
+                           id="lbl_modified_by"
+                           for="fld_modified_by">Modified By:</label>
+                </div>
+                <div class="col-md-6 col-xl-10">
+                    <input
+                            class="form-control-plaintext" type="text"
+                            value="{{movie.user.username}}" readonly="true"
+                            id="fld_modified_by">
+                </div>
+            </div>
+            {% endif %}
+            <div class="form-row">
+                <div class="col-md-6 col-xl-2"></div>
+                <div class="col-md-6 col-xl-10">
+                    <button type="submit" class="btn btn-default" id="submit"
+                            type="submit">Submit
+                    </button>
+                    |
+                    <a href="{{ url_for('index') }}">Cancel</a>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}
